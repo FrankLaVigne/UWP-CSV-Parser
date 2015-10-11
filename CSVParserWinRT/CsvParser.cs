@@ -64,7 +64,7 @@ namespace CSVParserWinRT
         public CsvParser()
         {
             InitializeFields();
-            this.ParserEngine = new ParserEngines.BetterParserEngine();
+            this.ParserEngine = new ParserEngines.DefaultParserEngine();
         }
 
         /// <summary>

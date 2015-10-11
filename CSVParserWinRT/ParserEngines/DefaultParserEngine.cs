@@ -10,7 +10,7 @@ namespace CSVParserWinRT.ParserEngines
     /// <summary>
     /// Parser Engine that handles escaped fields
     /// </summary>
-    public sealed class BetterParserEngine : IParserEngine
+    public sealed class DefaultParserEngine : IParserEngine
     {
         #region Private Members
 
