@@ -21,7 +21,6 @@ namespace CSVParserWinRT
 
         #endregion
 
-
         #region Public Properties
 
         /// <summary>
