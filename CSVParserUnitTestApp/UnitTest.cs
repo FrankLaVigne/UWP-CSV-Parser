@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using CSVParserWinRT;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CSVParserUnitTestApp
 {
@@ -21,7 +23,7 @@ Nuking Mars,""Science,Space"",9/22/2015,78
 Top 15 Mistakes Beginner Filmmakers Make, Video Production,9/21/2015,65";
 
         [TestMethod]
-        public async void CSVParsingTest()
+        public async Task CSVParsingRecordCountTest()
         {
             // Setup
             var expectedRecordCount = this._testCSVFragment.Split('\n').Length - 1;
@@ -29,10 +31,33 @@ Top 15 Mistakes Beginner Filmmakers Make, Video Production,9/21/2015,65";
             // Test
             CsvParser csvParser = new CsvParser();
             csvParser.RawText = this._testCSVFragment;
-            var results = await csvParser.Parse();
+            var results = await csvParser.Parse() as List<Dictionary<string,string>>;
 
             // Assert
-            Assert.AreEqual(0, 0);
+            Assert.AreEqual(expectedRecordCount, results.Count);
+
         }
+        
+        [TestMethod]
+        public async Task CSVParsingCommaTest()
+        {
+            // Setup
+            var expectedRecord7Title = "ZoomData Makes Everyone a Data Scientist, 5 DCTech Startups to Watch, and NAB Partners with 1776";
+            var expectedRecord9Title = "Pope Francis Comes to Town, Papal Surge Pricing, and Startup Weekend DC";
+
+            // Test
+            CsvParser csvParser = new CsvParser();
+            csvParser.RawText = this._testCSVFragment;
+            var results = await csvParser.Parse() as List<Dictionary<string, string>>;
+
+            var actualRecord7Title = results[7]["Title"];
+            var actualRecord9Title = results[9]["Title"];
+
+            // Assert
+            Assert.AreEqual(expectedRecord7Title, actualRecord7Title);
+            Assert.AreEqual(expectedRecord9Title, actualRecord9Title);
+
+        }
+
     }
 }
